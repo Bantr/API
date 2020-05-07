@@ -1,7 +1,8 @@
 import { INotificationType } from '@bantr/lib/dist/types/';
-import { IsBoolean } from 'class-validator';
+import { IsBoolean, Min } from 'class-validator';
 
 export class SetNotificationTypeDto {
+    @Min(0)
     platform: INotificationType;
 
     @IsBoolean()
