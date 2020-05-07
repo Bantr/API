@@ -32,6 +32,7 @@ export class ConfigService {
         const isTest = process.env.BANTR_IS_TEST;
 
         const path = isTest ? '.env.example' : filePath;
+        this.logger.log(`Loading file ${path} for env config`);
         if (fs.existsSync(path)) {
             const data = fs.readFileSync(path);
             config = dotenv.parse(data);

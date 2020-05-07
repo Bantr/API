@@ -41,7 +41,11 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: npm test
+        env:
+          BANTR_IS_TEST: true
       - run: npm run test:e2e
+        env:
+          BANTR_IS_TEST: true
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
