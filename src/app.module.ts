@@ -11,6 +11,8 @@ import { UserModule } from './user/user.module';
 
 dotenv.config();
 
+const isTest = process.env.BANTR_IS_TEST;
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -24,7 +26,7 @@ dotenv.config();
       entities: [
         __dirname + "/../node_modules/@bantr/lib/**/*.entity{.ts,.js}"
       ],
-      synchronize: false
+      synchronize: isTest ? true : false
     }),
     AuthModule,
     UserModule,
