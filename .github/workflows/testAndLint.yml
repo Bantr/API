@@ -41,15 +41,10 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: npm test
+      - run: cp .env.example .env
       - run: npm run test:e2e
         env:
           CI: true
-          BANTR_PG_HOST: 127.0.0.1
-          BANTR_PG_PORT: 5432
-          BANTR_PG_USER: postgres
-          BANTR_PG_PW: postgres
-          BANTR_PG_DB: bantr
-          BANTR_JWT_SECRET: thisIsSoSecret
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
