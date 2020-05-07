@@ -28,8 +28,12 @@ export class ConfigService {
     constructor(filePath: string) {
         let config;
         this.envConfig = {};
-        if (fs.existsSync(filePath)) {
-            const data = fs.readFileSync(filePath);
+
+        const isTest = process.env.BANTR_IS_TEST;
+
+        const path = isTest ? '.env.example' : filePath;
+        if (fs.existsSync(path)) {
+            const data = fs.readFileSync(path);
             config = dotenv.parse(data);
                 this.envConfig = this.validateInput(config);
 

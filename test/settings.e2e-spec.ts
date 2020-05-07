@@ -4,6 +4,8 @@ import * as request from 'supertest';
 import { AuthenticatedGuard } from '../src/auth/guards/authenticated.guard';
 import { AppModule } from './../src/app.module';
 
+process.env.BANTR_IS_TEST = "true";
+
 describe('SettingsController (e2e)', () => {
     let app;
     const authGuard = { canActivate: () => true };
