@@ -2,8 +2,6 @@ import * as Joi from '@hapi/joi';
 import { Logger } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
-import * as isCi from 'is-ci';
-
 
 /**
  * .env config
@@ -33,13 +31,8 @@ export class ConfigService {
         if (fs.existsSync(filePath)) {
             const data = fs.readFileSync(filePath);
             config = dotenv.parse(data);
-
-            if (isCi) {
-                this.envConfig = config;
-            } else {
                 this.envConfig = this.validateInput(config);
 
-            }
 
         }
     }
@@ -60,7 +53,7 @@ export class ConfigService {
             BANTR_PG_DB: Joi.string().required(),
             BANTR_PG_HOST: Joi.string().default('localhost'),
             BANTR_PG_PORT: Joi.number().default(5432),
-            JWT_SECRET: Joi.string().required(),
+            BANTR_JWT_SECRET: Joi.string().required(),
             BANTR_STEAM_API: Joi.string().required(),
             BANTR_DISCORD_CLIENTID: Joi.string().required(),
             BANTR_DISCORD_CLIENTSECRET: Joi.string().required(),

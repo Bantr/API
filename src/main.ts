@@ -86,7 +86,7 @@ async function bootstrap() {
         db: parseInt(process.env.REDIS_DB, 10),
         client: redisClient
       }),
-      secret: process.env.JWT_SECRET,
+      secret: process.env.BANTR_JWT_SECRET,
       resave: false,
       saveUninitialized: false
     })

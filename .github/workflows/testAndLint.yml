@@ -12,7 +12,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
+          POSTGRES_DB: bantr
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
@@ -48,7 +48,8 @@ jobs:
           BANTR_PG_PORT: 5432
           BANTR_PG_USER: postgres
           BANTR_PG_PW: postgres
-          BANTR_PG_DB: postgres
+          BANTR_PG_DB: bantr
+          BANTR_JWT_SECRET: thisIsSoSecret
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
