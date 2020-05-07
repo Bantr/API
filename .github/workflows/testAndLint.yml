@@ -55,7 +55,7 @@ jobs:
           BANTR_FACEIT_CLIENTSECRET: clientSecret
           BANTR_DISCORD_CLIENTID: clientId
           BANTR_DISCORD_CLIENTSECRET: clientSecret
-          HOSTNAME: http://localhost:3000
+          HOSTNAME: "http://localhost:3000"
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
