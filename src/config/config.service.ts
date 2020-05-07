@@ -46,9 +46,9 @@ export class ConfigService {
                 .valid('development', 'production', 'test')
                 .default('development'),
             PORT: Joi.number().default(3000),
-            BANTR_PG_USER: Joi.string().required(),
-            BANTR_PG_PW: Joi.string().required(),
-            BANTR_PG_DB: Joi.string().required(),
+            BANTR_PG_USER: Joi.string().default('postgres'),
+            BANTR_PG_PW: Joi.string().default('postgres'),
+            BANTR_PG_DB: Joi.string().default('postgres'),
             BANTR_PG_HOST: Joi.string().default('localhost'),
             BANTR_PG_PORT: Joi.number().default(5432),
             JWT_SECRET: Joi.string().required(),
