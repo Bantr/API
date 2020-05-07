@@ -62,7 +62,7 @@ describe('SettingsController (e2e)', () => {
         it('Returns 400 when an invalid status is provided', () => {
             return request(app.getHttpServer())
                 .post('/settings/notification/platform')
-                .send({ status: "this is not a real status"})
+                .send({ status: "this is not a real status" })
                 .expect(400);
         });
     });
@@ -108,7 +108,7 @@ describe('SettingsController (e2e)', () => {
         it('Returns 400 when an invalid status is provided', () => {
             return request(app.getHttpServer())
                 .post('/settings/notification/bantype')
-                .send({ status: "this is not a real status"})
+                .send({ status: "this is not a real status" })
                 .expect(400);
         });
     });
