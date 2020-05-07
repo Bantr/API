@@ -9,6 +9,8 @@ WORKDIR /opt/bantr
 COPY package*.json ./
 RUN npm ci
 
+EXPOSE 3000
+
 # Bundle app source
 COPY . .
 
