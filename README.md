@@ -7,6 +7,10 @@
 <img src="https://img.shields.io/badge/API-Docs-brightgreen">
 </a>
 
+<a href="https://quay.io/repository/bantr/api">
+<img src="https://quay.io/repository/bantr/api/status">
+</a>
+
 <a href="https://discord.bantr.app">
 <img src="https://img.shields.io/discord/626436103573864448?color=%2331c553&label=Discord&logo=discord&logoColor=white">
 </a>
