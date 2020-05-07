@@ -28,10 +28,17 @@ export class ConfigService {
     constructor(filePath: string) {
         let config;
         this.envConfig = {};
-        if (fs.existsSync(filePath)) {
-            const data = fs.readFileSync(filePath);
+
+        const isTest = process.env.BANTR_IS_TEST;
+
+        const path = isTest ? '.env.example' : filePath;
+        this.logger.log(`Loading file ${path} for env config`);
+        if (fs.existsSync(path)) {
+            const data = fs.readFileSync(path);
             config = dotenv.parse(data);
-            this.envConfig = this.validateInput(config);
+                this.envConfig = this.validateInput(config);
+
+
         }
     }
 
@@ -51,7 +58,7 @@ export class ConfigService {
             BANTR_PG_DB: Joi.string().required(),
             BANTR_PG_HOST: Joi.string().default('localhost'),
             BANTR_PG_PORT: Joi.number().default(5432),
-            JWT_SECRET: Joi.string().required(),
+            BANTR_JWT_SECRET: Joi.string().required(),
             BANTR_STEAM_API: Joi.string().required(),
             BANTR_DISCORD_CLIENTID: Joi.string().required(),
             BANTR_DISCORD_CLIENTSECRET: Joi.string().required(),

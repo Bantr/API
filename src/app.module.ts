@@ -9,20 +9,24 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { UserSettingsModule } from './user-settings/user-settings.module';
 import { UserModule } from './user/user.module';
 
-// Does not happen in config service because it's a PITA to parse the values from the service inside module initialization
 dotenv.config();
+
+const isTest = process.env.BANTR_IS_TEST;
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      // TODO: Handle this config via config service
+      type: "postgres",
       host: process.env.BANTR_PG_HOST,
       port: parseInt(process.env.BANTR_PG_PORT, 10),
       username: process.env.BANTR_PG_USER,
       password: process.env.BANTR_PG_PW,
       database: process.env.BANTR_PG_DB,
-      entities: [__dirname + "/../node_modules/@bantr/lib/**/*.entity{.ts,.js}"],
-      synchronize: false
+      entities: [
+        __dirname + "/../node_modules/@bantr/lib/**/*.entity{.ts,.js}"
+      ],
+      synchronize: isTest ? true : false
     }),
     AuthModule,
     UserModule,
@@ -32,4 +36,4 @@ dotenv.config();
   controllers: [AppController],
   providers: [ConfigService]
 })
-export class AppModule { }
+export class AppModule {}

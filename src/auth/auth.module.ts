@@ -24,7 +24,7 @@ dotenv.config();
     TypeOrmModule.forFeature([UserRepository]),
     ConfigModule,
     HttpModule,
-    JwtModule.register({ secret: process.env.JWT_SECRET })
+    JwtModule.register({ secret: process.env.BANTR_JWT_SECRET })
   ],
   controllers: [AuthController],
   providers: [AuthService,

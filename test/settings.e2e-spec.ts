@@ -5,13 +5,12 @@ import * as request from 'supertest';
 import { AuthenticatedGuard } from '../src/auth/guards/authenticated.guard';
 import { AppModule } from './../src/app.module';
 
-dotenv.config();
-
 describe('SettingsController (e2e)', () => {
     let app;
     const authGuard = { canActivate: () => true };
 
     beforeAll(async () => {
+        dotenv.config();
         const moduleFixture: TestingModule = await Test.createTestingModule({
             imports: [AppModule]
         })
@@ -25,43 +24,43 @@ describe('SettingsController (e2e)', () => {
     describe('/notification/platform (POST)', () => {
         it('Returns 201 when correct data is provided', () => {
             return request(app.getHttpServer())
-                .post('/notification/platform')
-                .send({ type: 0, status: true })
+                .post('/settings/notification/platform')
+                .send({ platform: 0, status: true })
                 .expect(201);
         });
 
         it('Returns 400 when no type is provided', () => {
             return request(app.getHttpServer())
-                .post('/notification/platform')
+                .post('/settings/notification/platform')
                 .send({ status: true })
                 .expect(400);
         });
 
         it('Returns 400 when an invalid type is provided - string', () => {
             return request(app.getHttpServer())
-                .post('/notification/platform')
-                .send({ type: "this is not a real ban type" })
+                .post('/settings/notification/platform')
+                .send({ platform: "this is not a real ban type" })
                 .expect(400);
         });
 
         it('Returns 400 when an invalid type is provided - unknown type', () => {
             return request(app.getHttpServer())
-                .post('/notification/platform')
-                .send({ type: 13333333333333337 })
+                .post('/settings/notification/platform')
+                .send({ platform: 13333333333333337 })
                 .expect(400);
         });
 
         it('Returns 400 when type is provided as a string', () => {
             return request(app.getHttpServer())
-                .post('/notification/platform')
-                .send({ type: "0" })
+                .post('/settings/notification/platform')
+                .send({ platform: "0" })
                 .expect(400);
         });
 
 
         it('Returns 400 when an invalid status is provided', () => {
             return request(app.getHttpServer())
-                .post('/notification/platform')
+                .post('/settings/notification/platform')
                 .send({ status: "this is not a real status" })
                 .expect(400);
         });
@@ -71,35 +70,35 @@ describe('SettingsController (e2e)', () => {
 
         it('Returns 201 when correct data is provided', () => {
             return request(app.getHttpServer())
-                .post('/notification/bantype')
+                .post('/settings/notification/bantype')
                 .send({ type: 0, status: true })
                 .expect(201);
         });
 
         it('Returns 400 when no type is provided', () => {
             return request(app.getHttpServer())
-                .post('/notification/bantype')
+                .post('/settings/notification/bantype')
                 .send({ status: true })
                 .expect(400);
         });
 
         it('Returns 400 when an invalid type is provided - string', () => {
             return request(app.getHttpServer())
-                .post('/notification/bantype')
+                .post('/settings/notification/bantype')
                 .send({ type: "this is not a real ban type" })
                 .expect(400);
         });
 
         it('Returns 400 when an invalid type is provided - unknown type', () => {
             return request(app.getHttpServer())
-                .post('/notification/bantype')
+                .post('/settings/notification/bantype')
                 .send({ type: 13333333333333337 })
                 .expect(400);
         });
 
         it('Returns 400 when type is provided as a string', () => {
             return request(app.getHttpServer())
-                .post('/notification/bantype')
+                .post('/settings/notification/bantype')
                 .send({ type: "0" })
                 .expect(400);
         });
@@ -107,7 +106,7 @@ describe('SettingsController (e2e)', () => {
 
         it('Returns 400 when an invalid status is provided', () => {
             return request(app.getHttpServer())
-                .post('/notification/bantype')
+                .post('/settings/notification/bantype')
                 .send({ status: "this is not a real status" })
                 .expect(400);
         });
