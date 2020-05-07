@@ -1,11 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import * as dotenv from 'dotenv';
 import * as request from 'supertest';
 
 import { AuthenticatedGuard } from '../src/auth/guards/authenticated.guard';
 import { AppModule } from './../src/app.module';
-
-dotenv.config();
 
 describe('SettingsController (e2e)', () => {
     let app;
