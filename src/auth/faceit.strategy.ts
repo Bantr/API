@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { HttpService, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 
-import { ConfigService } from '../config/config.service';
 import { UserRepository } from '../user/user.repository';
 import { AuthService } from './auth.service';
 import { ISessionInterface } from './session.interface';

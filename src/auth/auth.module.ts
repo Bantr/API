@@ -4,7 +4,6 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 
-import { ConfigModule } from '../config/config.module';
 import { UserRepository } from '../user/user.repository';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -22,7 +21,6 @@ dotenv.config();
       session: true
     }),
     TypeOrmModule.forFeature([UserRepository]),
-    ConfigModule,
     HttpModule,
     JwtModule.register({ secret: process.env.BANTR_JWT_SECRET })
   ],
