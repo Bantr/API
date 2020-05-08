@@ -1,7 +1,8 @@
 import * as Joi from '@hapi/joi';
 import { Logger } from '@nestjs/common';
 import * as dotenv from 'dotenv';
-import * as fs from 'fs';
+
+// TODO: #5 Refactor to use @nest/config module
 
 /**
  * .env config
@@ -26,20 +27,15 @@ export class ConfigService {
      * @param filePath
      */
     constructor(filePath: string) {
-        let config;
         this.envConfig = {};
-
         const isTest = process.env.BANTR_IS_TEST;
-
+        
         const path = isTest ? '.env.example' : filePath;
+        dotenv.config({ path });
+
         this.logger.log(`Loading file ${path} for env config`);
-        if (fs.existsSync(path)) {
-            const data = fs.readFileSync(path);
-            config = dotenv.parse(data);
-                this.envConfig = this.validateInput(config);
 
-
-        }
+        this.envConfig = this.validateInput(process.env);
     }
 
     /**
@@ -75,7 +71,7 @@ export class ConfigService {
         });
 
         const { error, value: validatedEnvConfig } = envVarsSchema.validate(
-            envConfig
+            envConfig, { allowUnknown: true }
         );
         if (error) {
             throw new Error(`Config validation error: ${error.message}`);
