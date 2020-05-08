@@ -17,6 +17,7 @@ const isTest = process.env.BANTR_IS_TEST;
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: ['.env', '.env.example'],
       isGlobal: true,
       validationSchema: Joi.object({
       NODE_ENV: Joi.string()
