@@ -20,15 +20,14 @@ dotenv.config();
 const readJsonPromise = promisify(readJson);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const morgan = require('morgan'); // imports are weird
+const morgan = require("morgan"); // imports are weird
 
 /**
  * Logger
  */
-const logger = new Logger('bootstrap');
+const logger = new Logger("bootstrap");
 
 const RedisStore = connect(session);
-
 
 if (process.env.BANTR_SENTRY_DSN) {
   logger.log(`Sentry error tracking enabled.`);
@@ -36,17 +35,17 @@ if (process.env.BANTR_SENTRY_DSN) {
 }
 
 async function setUpSwagger(app: NestExpressApplication) {
-  const pkg = await readJsonPromise('./package.json');
+  const pkg = await readJsonPromise("./package.json");
   const options = new DocumentBuilder()
-    .setTitle('Bantr')
-    .setDescription('Bantr web API documentation')
+    .setTitle("Bantr")
+    .setDescription("Bantr web API documentation")
     .setVersion(pkg.version)
-    .addTag('Authentication')
-    .addTag('Settings')
-    .addTag('Notifications')
+    .addTag("Authentication")
+    .addTag("Settings")
+    .addTag("Notifications")
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup("api", app, document);
 
   return app;
 }
@@ -66,15 +65,15 @@ async function bootstrap() {
   let app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({ credentials: true, origin: true });
-  app.set('trust proxy', 'loopback,uniquelocal');
+  app.set("trust proxy", "loopback,uniquelocal");
 
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === "production") {
     // Standard Apache combined log output.
     // :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"
-    app.use(morgan('combined'));
+    app.use(morgan("combined"));
   } else {
     // :method :url :status :response-time ms - :res[content-length]
-    app.use(morgan('dev'));
+    app.use(morgan("dev"));
   }
 
   app.use(
@@ -104,12 +103,10 @@ async function bootstrap() {
   await app.listen(process.env.PORT);
   logger.log(`Application listening on port ${process.env.PORT}`);
 
-  process.on('unhandledRejection', e => {
+  process.on("unhandledRejection", (e) => {
     logger.error(`Unhandled Promise rejection! ${e}`);
     throw e;
   });
 }
 
 bootstrap();
-
-
