@@ -60,7 +60,7 @@
     "@sentry/node": "5.15.4",
     "bcrypt": "^4.0.0",
     "bull": "^3.10.0",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "connect-flash": "^0.1.1",
     "connect-redis": "^4.0.3",
