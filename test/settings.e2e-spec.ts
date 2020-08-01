@@ -114,64 +114,80 @@ describe("SettingsController (e2e)", () => {
     });
   });
 
-  describe("/steam/matchAuthCode (POST)", () => {
+  describe("/settings/steam/matchmakingauth (POST)", () => {
     it("Returns 201 when correct data is provided", () => {
       return request(app.getHttpServer())
-        .post("/settings/steam/matchAuthCode")
-        .send({ authCode: "7CV9-BD7HN-1R2B" })
+        .post("/settings/steam/matchmakingauth")
+        .send({
+          authCode: "7CV9-BD7HN-1R2B",
+          lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP"
+        })
         .expect(201);
     });
 
     it("Returns 400 when no authCode", () => {
       return request(app.getHttpServer())
-        .post("/settings/steam/matchAuthCode")
-        .send({})
+        .post("/settings/steam/matchmakingauth")
+        .send({ lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP" })
         .expect(400);
     });
 
     it("Returns 400 when an invalid auth code is provided", () => {
       return request(app.getHttpServer())
-        .post("/settings/steam/matchAuthCode")
-        .send({ authCode: "this is not a real code" })
+        .post("/settings/steam/matchmakingauth")
+        .send({
+          authCode: "this is not a real code",
+          lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP"
+        })
         .expect(400);
     });
 
     it("Returns 400 when an invalid auth code is provided", () => {
       return request(app.getHttpServer())
-        .post("/settings/steam/matchAuthCode")
-        .send({ authCode: "7CV9-BD7N-1R2B" })
+        .post("/settings/steam/matchmakingauth")
+        .send({
+          authCode: "7CV9-BD7N-1R2B",
+          lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP"
+        })
         .expect(400);
     });
   });
 
-  describe("/steam/lastKnownMatch (POST)", () => {
-    it("Returns 201 when correct data is provided", () => {
-      return request(app.getHttpServer())
-        .post("/settings/steam/lastKnownMatch")
-        .send({ lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP" })
-        .expect(201);
-    });
+  it("Returns 201 when correct data is provided", () => {
+    return request(app.getHttpServer())
+      .post("/settings/steam/matchmakingauth")
+      .send({
+        lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP",
+        authCode: "7CV9-BD7HN-1R2B"
+      })
+      .expect(201);
+  });
 
-    it("Returns 400 when no lastKnownMatch", () => {
-      return request(app.getHttpServer())
-        .post("/settings/steam/lastKnownMatch")
-        .send({})
-        .expect(400);
-    });
+  it("Returns 400 when no lastKnownMatch", () => {
+    return request(app.getHttpServer())
+      .post("/settings/steam/matchmakingauth")
+      .send({ authCode: "7CV9-BD7HN-1R2B" })
+      .expect(400);
+  });
 
-    it("Returns 400 when an invalid auth code is provided", () => {
-      return request(app.getHttpServer())
-        .post("/settings/steam/lastKnownMatch")
-        .send({ lastKnownMatch: "this is not a real code" })
-        .expect(400);
-    });
+  it("Returns 400 when an invalid lastKnownMatch is provided", () => {
+    return request(app.getHttpServer())
+      .post("/settings/steam/matchmakingauth")
+      .send({
+        lastKnownMatch: "this is not a real code",
+        authCode: "7CV9-BD7HN-1R2B"
+      })
+      .expect(400);
+  });
 
-    it("Returns 400 when an invalid auth code is provided", () => {
-      return request(app.getHttpServer())
-        .post("/settings/steam/lastKnownMatch")
-        .send({ lastKnownMatch: "CSGO-wkzOw-RzsHo-AXB7-tLzdR-rvMpP" })
-        .expect(400);
-    });
+  it("Returns 400 when an invalid lastKnownMatch is provided", () => {
+    return request(app.getHttpServer())
+      .post("/settings/steam/matchmakingauth")
+      .send({
+        lastKnownMatch: "CSGO-wkzOw-RzsHo-AXB7-tLzdR-rvMpP",
+        authCode: "7CV9-BD7HN-1R2B"
+      })
+      .expect(400);
   });
 
   afterAll(async () => {

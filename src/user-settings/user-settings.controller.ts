@@ -6,8 +6,7 @@ import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity
 import { GetUser } from '../auth/get-user.decorator';
 import { AuthenticatedGuard } from '../auth/guards/authenticated.guard';
 import { SetBanTypeDto } from './dto/setBanType.dto';
-import { SetLastKnownMatchDTO } from './dto/setLastKnownMatch.dto';
-import { SetMatchAuthCodeDTO } from './dto/setMatchAuthCode.dto';
+import { SetMatchmakingAuthDTO } from './dto/setMatchmakingAuth.dto';
 import { SetNotificationTypeDto } from './dto/setNotificationType.dto';
 import { UserSettingsService } from './user-settings.service';
 
@@ -36,19 +35,11 @@ export class SettingsController {
     return this.settingsService.setNotificationType(setNotificationType, user);
   }
 
-  @Post("/steam/matchAuthCode")
-  async setMatchAuthCode(
-    @Body() setMatchAuthCodeDto: SetMatchAuthCodeDTO,
+  @Post("/steam/matchmakingauth")
+  async setMatchmakingAuth(
+    @Body() dto: SetMatchmakingAuthDTO,
     @GetUser() user: User
   ) {
-    return this.settingsService.setMatchAuthCode(setMatchAuthCodeDto, user);
-  }
-
-  @Post("/steam/lastKnownMatch")
-  async setLastKnownMatch(
-    @Body() setLastKnownMatchDTO: SetLastKnownMatchDTO,
-    @GetUser() user: User
-  ) {
-    return this.settingsService.setLastKnownCode(setLastKnownMatchDTO, user);
+    return this.settingsService.setMatchmakingAuth(dto, user);
   }
 }
