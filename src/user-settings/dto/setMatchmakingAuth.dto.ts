@@ -1,10 +1,11 @@
+import { constants } from '@bantr/lib';
 import { IsString, Matches } from 'class-validator';
 
 export class SetMatchmakingAuthDTO {
   @IsString()
-  @Matches(/CSGO-\w{5}-\w{5}-\w{5}-\w{5}-\w{5}/)
+  @Matches(constants.lastKnownMatch)
   lastKnownMatch: string;
   @IsString()
-  @Matches(/\w{4}-\w{5}-\w{4}/)
+  @Matches(constants.matchAuthCode)
   matchmakingAuthCode: string;
 }
