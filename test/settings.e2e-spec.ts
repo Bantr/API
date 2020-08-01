@@ -119,13 +119,13 @@ describe("SettingsController (e2e)", () => {
       return request(app.getHttpServer())
         .post("/settings/steam/matchmakingauth")
         .send({
-          authCode: "7CV9-BD7HN-1R2B",
+          matchmakingAuthCode: "7CV9-BD7HN-1R2B",
           lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP"
         })
         .expect(201);
     });
 
-    it("Returns 400 when no authCode", () => {
+    it("Returns 400 when no matchmakingAuthCode", () => {
       return request(app.getHttpServer())
         .post("/settings/steam/matchmakingauth")
         .send({ lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP" })
@@ -136,7 +136,7 @@ describe("SettingsController (e2e)", () => {
       return request(app.getHttpServer())
         .post("/settings/steam/matchmakingauth")
         .send({
-          authCode: "this is not a real code",
+          matchmakingAuthCode: "this is not a real code",
           lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP"
         })
         .expect(400);
@@ -146,7 +146,7 @@ describe("SettingsController (e2e)", () => {
       return request(app.getHttpServer())
         .post("/settings/steam/matchmakingauth")
         .send({
-          authCode: "7CV9-BD7N-1R2B",
+          matchmakingAuthCode: "7CV9-BD7N-1R2B",
           lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP"
         })
         .expect(400);
@@ -158,7 +158,7 @@ describe("SettingsController (e2e)", () => {
       .post("/settings/steam/matchmakingauth")
       .send({
         lastKnownMatch: "CSGO-wkzOw-RzsHo-AXBL7-tLzdR-rvMpP",
-        authCode: "7CV9-BD7HN-1R2B"
+        matchmakingAuthCode: "7CV9-BD7HN-1R2B"
       })
       .expect(201);
   });
@@ -166,7 +166,7 @@ describe("SettingsController (e2e)", () => {
   it("Returns 400 when no lastKnownMatch", () => {
     return request(app.getHttpServer())
       .post("/settings/steam/matchmakingauth")
-      .send({ authCode: "7CV9-BD7HN-1R2B" })
+      .send({ matchmakingAuthCode: "7CV9-BD7HN-1R2B" })
       .expect(400);
   });
 
@@ -175,7 +175,7 @@ describe("SettingsController (e2e)", () => {
       .post("/settings/steam/matchmakingauth")
       .send({
         lastKnownMatch: "this is not a real code",
-        authCode: "7CV9-BD7HN-1R2B"
+        matchmakingAuthCode: "7CV9-BD7HN-1R2B"
       })
       .expect(400);
   });
@@ -185,7 +185,7 @@ describe("SettingsController (e2e)", () => {
       .post("/settings/steam/matchmakingauth")
       .send({
         lastKnownMatch: "CSGO-wkzOw-RzsHo-AXB7-tLzdR-rvMpP",
-        authCode: "7CV9-BD7HN-1R2B"
+        matchmakingAuthCode: "7CV9-BD7HN-1R2B"
       })
       .expect(400);
   });

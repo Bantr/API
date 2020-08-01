@@ -62,7 +62,7 @@ export class UserSettingsService {
 
   async setMatchmakingAuth(dto: SetMatchmakingAuthDTO, user: User) {
     const updateObject: QueryPartialEntity<UserSettings> = {};
-    updateObject.matchAuthCode = dto.authCode;
+    updateObject.matchAuthCode = dto.matchmakingAuthCode;
     updateObject.lastKnownMatch = dto.lastKnownMatch;
     return this.settingsRepository.update(user.id, updateObject);
   }

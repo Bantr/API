@@ -6,5 +6,5 @@ export class SetMatchmakingAuthDTO {
   lastKnownMatch: string;
   @IsString()
   @Matches(/\w{4}-\w{5}-\w{4}/)
-  authCode: string;
+  matchmakingAuthCode: string;
 }
