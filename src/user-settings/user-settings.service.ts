@@ -5,8 +5,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { QueryPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { SetBanTypeDto } from './dto/setBanType.dto';
-import { SetLastKnownMatchDTO } from './dto/setLastKnownMatch.dto';
-import { SetMatchAuthCodeDTO } from './dto/setMatchAuthCode.dto';
+import { SetMatchmakingAuthDTO } from './dto/setMatchmakingAuth.dto';
 import { SetNotificationTypeDto } from './dto/setNotificationType.dto';
 import { UserSettingsRepository } from './user-settings.repository';
 
@@ -61,15 +60,10 @@ export class UserSettingsService {
     return updateObject;
   }
 
-  async setMatchAuthCode(authCodeDTO: SetMatchAuthCodeDTO, user: User) {
+  async setMatchmakingAuth(dto: SetMatchmakingAuthDTO, user: User) {
     const updateObject: QueryPartialEntity<UserSettings> = {};
-    updateObject.matchAuthCode = authCodeDTO.authCode;
-    return this.settingsRepository.update(user.id, updateObject);
-  }
-
-  async setLastKnownCode(lastKnownMatch: SetLastKnownMatchDTO, user: User) {
-    const updateObject: QueryPartialEntity<UserSettings> = {};
-    updateObject.lastKnownMatch = lastKnownMatch.lastKnownMatch;
+    updateObject.matchAuthCode = dto.matchmakingAuthCode;
+    updateObject.lastKnownMatch = dto.lastKnownMatch;
     return this.settingsRepository.update(user.id, updateObject);
   }
 }
