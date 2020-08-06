@@ -64,6 +64,7 @@ export class UserSettingsService {
     const updateObject: QueryPartialEntity<UserSettings> = {};
     updateObject.matchAuthCode = dto.matchmakingAuthCode;
     updateObject.lastKnownMatch = dto.lastKnownMatch;
+    updateObject.matchmakingAuthFailed = false;
     return this.settingsRepository.update(user.id, updateObject);
   }
 }
