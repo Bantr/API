@@ -116,9 +116,8 @@ export class AuthController {
   @ApiUnauthorizedResponse({ description: "Invalid JWT provided in header" })
   async graphQL(
     @Body() body: hasuraAuthDto
-  ): Promise<{ "X-Hasura-User-Id": string; "X-Hasura-Role": string }> {
+  ): Promise<{ "X-Hasura-User-Id"?: string; "X-Hasura-Role": string }> {
     const anonymousResponse = {
-      "X-Hasura-User-Id": null,
       "X-Hasura-Role": "anonymous"
     };
     const graphQLkey = body.headers["bantr-graphql"];
