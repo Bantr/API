@@ -1,5 +1,5 @@
 import { User, UserSettings } from '@bantr/lib/dist/entities';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
@@ -40,6 +40,17 @@ export class SettingsController {
     @Body() dto: SetMatchmakingAuthDTO,
     @GetUser() user: User
   ) {
+    const isValid = await this.settingsService.validateMatchmakingAuth(
+      dto,
+      user
+    );
+
+    if (!isValid) {
+      throw new BadRequestException(
+        "Invalid steam matchmaking authentication info"
+      );
+    }
+
     return this.settingsService.setMatchmakingAuth(dto, user);
   }
 }
