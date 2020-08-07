@@ -1,7 +1,8 @@
 import { User, UserSettings } from '@bantr/lib/dist/entities';
 import { INotificationType } from '@bantr/lib/dist/types';
 import { IBanType } from '@bantr/lib/dist/types/BanType.enum';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpService, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { QueryPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { SetBanTypeDto } from './dto/setBanType.dto';
@@ -11,7 +12,17 @@ import { UserSettingsRepository } from './user-settings.repository';
 
 @Injectable()
 export class UserSettingsService {
-  constructor(private settingsRepository: UserSettingsRepository) {}
+  /**
+   * API key used for authentication with Steam API
+   */
+  private steamApiKey: string;
+  constructor(
+    private settingsRepository: UserSettingsRepository,
+    private readonly configService: ConfigService,
+    private readonly httpService: HttpService
+  ) {
+    this.steamApiKey = configService.get("BANTR_STEAM_API");
+  }
 
   async setBanType(banTypeChange: SetBanTypeDto, user: User) {
     const { status, type } = banTypeChange;
@@ -64,6 +75,32 @@ export class UserSettingsService {
     const updateObject: QueryPartialEntity<UserSettings> = {};
     updateObject.matchAuthCode = dto.matchmakingAuthCode;
     updateObject.lastKnownMatch = dto.lastKnownMatch;
+    updateObject.matchmakingAuthFailed = false;
     return this.settingsRepository.update(user.id, updateObject);
+  }
+
+  public async validateMatchmakingAuth(dto: SetMatchmakingAuthDTO, user: User) {
+    if (process.env.BANTR_IS_TEST === "true") {
+      return true;
+    }
+
+    try {
+      await this.httpService
+        .get(
+          `https://api.steampowered.com/ICSGOPlayers_730/GetNextMatchSharingCode/v1?`,
+          {
+            params: {
+              key: this.steamApiKey,
+              steamid: user.steamId,
+              knowncode: dto.lastKnownMatch,
+              steamidkey: dto.matchmakingAuthCode
+            }
+          }
+        )
+        .toPromise();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
