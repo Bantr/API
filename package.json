@@ -57,7 +57,7 @@
     "@nestjs/swagger": "^4.5.3",
     "@nestjs/typeorm": "^6.2.0",
     "@nestjs/websockets": "^6.8.0",
-    "@sentry/node": "5.15.4",
+    "@sentry/node": "5.20.1",
     "bcrypt": "^4.0.0",
     "bull": "^3.10.0",
     "class-transformer": "^0.3.1",
