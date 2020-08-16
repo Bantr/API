@@ -137,10 +137,7 @@ export class AuthController {
       throw new UnauthorizedException();
     }
 
-    const record = new User();
-    record.id = isValid.id;
-    record.lastActive = new Date();
-    await record.save();
+    await this.authService.updateLastActive(isValid.id);
 
     return {
       "X-Hasura-User-Id": `${isValid.id}`,
