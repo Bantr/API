@@ -11,6 +11,7 @@ export const GetUser = createParamDecorator(
     if (isTest) {
       const user = new User();
       user.id = 1;
+      user.username = "Integration test";
       return user;
     }
 
