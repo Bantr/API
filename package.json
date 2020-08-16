@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@bantr/lib": "^1.11.14",
+    "@digikare/nestjs-prom": "^0.2.4",
     "@hapi/joi": "^17.1.0",
     "@nestjs/cli": "^7.1.2",
     "@nestjs/common": "^7.0.9",
@@ -75,6 +76,7 @@
     "passport-oauth2": "^1.5.0",
     "passport-steam": "^1.0.12",
     "pg": "^8.0.3",
+    "prom-client": "^12.0.0",
     "querystring": "^0.2.0",
     "read-package-json": "^2.1.1",
     "redis": "^3.0.2",
