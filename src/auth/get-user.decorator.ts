@@ -11,11 +11,19 @@ export const GetUser = createParamDecorator(
     if (isTest) {
       const user = new User();
       user.id = 1;
+      user.username = "Integration test";
       return user;
     }
 
     const request = ctx.switchToHttp().getRequest();
     const user = request.session.passport.user;
+
+    if (user) {
+      const record = new User();
+      Object.assign(record, user);
+      record.lastActive = new Date();
+      record.save();
+    }
 
     return data ? user && user[data] : user;
   }

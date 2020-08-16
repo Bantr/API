@@ -10,54 +10,64 @@ import { UserRepository } from '../user/user.repository';
  */
 @Injectable()
 export class AuthService {
-    /**
-     * The logger
-     */
-    private logger = new Logger('AuthService');
+  /**
+   * The logger
+   */
+  private logger = new Logger("AuthService");
 
-    /**
-     * Inject dependencies
-     * @param userRepository
-     */
-    constructor(
-        @InjectRepository(UserRepository)
-        private userRepository: UserRepository,
-        private readonly jwtService: JwtService
-    ) { }
+  /**
+   * Inject dependencies
+   * @param userRepository
+   */
+  constructor(
+    @InjectRepository(UserRepository)
+    private userRepository: UserRepository,
+    private readonly jwtService: JwtService
+  ) {}
 
-    /**
-     * Removes the link between a User and a service
-     * @param user User
-     * @param service The service to disconnect
-     */
-    async disconnectService(user: User, service: SupportedServices): Promise<User> {
-        let userRecord = new User();
-        userRecord = Object.assign(userRecord, user);
-        userRecord[service] = null;
-        return userRecord.save();
-    }
+  /**
+   * Removes the link between a User and a service
+   * @param user User
+   * @param service The service to disconnect
+   */
+  async disconnectService(
+    user: User,
+    service: SupportedServices
+  ): Promise<User> {
+    let userRecord = new User();
+    userRecord = Object.assign(userRecord, user);
+    userRecord[service] = null;
+    return userRecord.save();
+  }
 
-    async getGraphQLAuthKey(session): Promise<string> {
-        const jwt = await this.jwtService.signAsync(session);
-        return jwt;
-    }
+  async getGraphQLAuthKey(session): Promise<string> {
+    const jwt = await this.jwtService.signAsync(session);
+    return jwt;
+  }
 
-    getGraphQLKeyPayload(key: string): string | { [key: string]: unknown } {
-        const payload = this.jwtService.decode(key);
-        return payload;
-    }
+  getGraphQLKeyPayload(key: string): string | { [key: string]: unknown } {
+    const payload = this.jwtService.decode(key);
+    return payload;
+  }
 
-    async validateGraphQLKey(key: string): Promise<{ id: string }> {
-        return this.jwtService.verifyAsync(key);
-    }
+  async validateGraphQLKey(key: string): Promise<{ id: string }> {
+    return this.jwtService.verifyAsync(key);
+  }
 
-    async getUserRole(id: string): Promise<string> {
-        const user = await this.userRepository.findOneOrFail(id);
-        return user.role;
-    }
+  async getUserRole(id: string): Promise<string> {
+    const user = await this.userRepository.findOneOrFail(id);
+    return user.role;
+  }
+
+  async updateLastActive(id: string) {
+    const user = await this.userRepository.findOneOrFail(id);
+    user.lastActive = new Date();
+    await user.save();
+    return user;
+  }
 }
 
 export enum SupportedServices {
-    faceit = 'faceitId',
-    discord = 'discordId',
+  faceit = "faceitId",
+  discord = "discordId",
 }

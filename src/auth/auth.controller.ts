@@ -137,6 +137,8 @@ export class AuthController {
       throw new UnauthorizedException();
     }
 
+    await this.authService.updateLastActive(isValid.id);
+
     return {
       "X-Hasura-User-Id": `${isValid.id}`,
       "X-Hasura-Role": "user"

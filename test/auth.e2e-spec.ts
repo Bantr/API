@@ -11,7 +11,8 @@ const expectAnonymous = (res: Response) => {
 };
 
 const authService = {
-  validateGraphQLKey: jest.fn()
+  validateGraphQLKey: jest.fn(),
+  updateLastActive: jest.fn()
 };
 
 describe("authController (e2e)", () => {
@@ -48,6 +49,7 @@ describe("authController (e2e)", () => {
         })
         .expect(() => {
           expect(authService.validateGraphQLKey).toBeCalledTimes(1);
+          expect(authService.updateLastActive).toBeCalledTimes(1);
         })
         .expect(200);
     });
