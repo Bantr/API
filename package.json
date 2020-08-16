@@ -59,7 +59,7 @@
     "@nestjs/typeorm": "^6.2.0",
     "@nestjs/websockets": "^6.8.0",
     "@sentry/node": "5.15.4",
-    "bcrypt": "^4.0.0",
+    "bcrypt": "^5.0.0",
     "bull": "^3.10.0",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
