@@ -44,7 +44,7 @@
     }
   },
   "dependencies": {
-    "@bantr/lib": "^1.11.12",
+    "@bantr/lib": "^1.11.14",
     "@hapi/joi": "^17.1.0",
     "@nestjs/cli": "^7.1.2",
     "@nestjs/common": "^7.0.9",

@@ -17,6 +17,13 @@ export const GetUser = createParamDecorator(
     const request = ctx.switchToHttp().getRequest();
     const user = request.session.passport.user;
 
+    if (user) {
+      const record = new User();
+      Object.assign(record, user);
+      record.lastActive = new Date();
+      record.save();
+    }
+
     return data ? user && user[data] : user;
   }
 );

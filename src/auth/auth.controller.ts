@@ -137,6 +137,11 @@ export class AuthController {
       throw new UnauthorizedException();
     }
 
+    const record = new User();
+    record.id = isValid.id;
+    record.lastActive = new Date();
+    await record.save();
+
     return {
       "X-Hasura-User-Id": `${isValid.id}`,
       "X-Hasura-Role": "user"
