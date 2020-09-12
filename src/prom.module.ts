@@ -83,7 +83,7 @@ export class PrometheusModule implements NestModule {
    * @param consumer
    */
   configure(consumer: MiddlewareConsumer) {
-    //consumer.apply(promAuthMiddleware).forRoutes("/metrics");
+    consumer.apply(promAuthMiddleware).forRoutes("/metrics");
     consumer.apply(collectData).forRoutes("/metrics");
   }
 }
