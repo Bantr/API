@@ -29,8 +29,14 @@ export const promAuthMiddleware = (req: Request, res: Response, next) => {
  * Creates all custom gauges, counters, ... to be used in prom-client
  */
 function setUp() {
-  // Total count for all database entities
-  for (const entity of entities) {
+  // Only loop over certain entities.
+  const enabledEntities = ["User", "Ban", "Player", "Match"];
+  const entitiesToLoop = entities.filter(
+    (_) => enabledEntities.indexOf(_.name) > 0
+  );
+
+  // Total count for database entities
+  for (const entity of entitiesToLoop) {
     entityGauges.push([
       new client.Gauge({
         name: entity.name,
