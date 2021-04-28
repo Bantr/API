@@ -79,7 +79,7 @@
     "prom-client": "^12.0.0",
     "querystring": "^0.2.0",
     "read-package-json": "^2.1.1",
-    "redis": "^3.0.2",
+    "redis": "^3.1.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
