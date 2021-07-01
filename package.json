@@ -60,7 +60,7 @@
     "@nestjs/websockets": "^6.8.0",
     "@sentry/node": "5.21.1",
     "bcrypt": "^5.0.0",
-    "bull": "^3.10.0",
+    "bull": "^3.22.10",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "connect-flash": "^0.1.1",
