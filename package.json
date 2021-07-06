@@ -89,7 +89,7 @@
   "devDependencies": {
     "@nestjs/cli": "^7.1.2",
     "@nestjs/testing": "^7.0.9",
-    "@types/connect-redis": "^0.0.13",
+    "@types/connect-redis": "^0.0.17",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.6",
     "@types/faker": "^4.1.11",
